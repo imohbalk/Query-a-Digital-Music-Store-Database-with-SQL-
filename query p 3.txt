@@ -1,0 +1,55 @@
+query 1 : 
+
+SSELECT c.FirstName , c.LastName , sum(total)
+FROM Customer c
+JOIN Invoice i
+on c.CustomerId = i.InvoiceId 
+JOIN InvoiceLine
+on i.InvoiceId = InvoiceLine.InvoiceId
+GROUP by 1 ,2 
+ORDER by 3 DESC
+LIMIT 20 
+
+query 2 : 
+
+SELECT count(t.Name) , BillingCountry 
+from Track t
+join InvoiceLine il
+on t.TrackId = il.TrackId
+JOIN Invoice i
+on i.InvoiceId = il.InvoiceId
+GROUP by 2
+ORDER by 1 DESC
+LIMIT 15
+
+query 3 : 
+
+SELECT a.ArtistId ,a.Name, count(a.Name) song
+from Artist a
+join Album aa
+on a.ArtistId = aa.ArtistId 
+join Track t
+on aa.AlbumId = t.AlbumId
+join Genre g
+on g.GenreId = t.GenreId
+WHERE g.name = 'Rock'
+GROUP by 2
+ORDER by 3 DESC
+LIMIT 10
+
+query 4 : 
+
+SELECT p.Name , t.Name track_name , sum(total)
+from Playlist p
+join PlaylistTrack pt
+on p.PlaylistId = pt.PlaylistId
+join Track t
+on t.TrackId = pt.TrackId 
+JOIN InvoiceLine il 
+on t.TrackId = il.TrackId
+join Invoice i 
+on i.InvoiceId = il.InvoiceId
+where p.Name = 'TV Shows'
+GROUP by 2
+order by 3 DESC
+LIMIT 10
